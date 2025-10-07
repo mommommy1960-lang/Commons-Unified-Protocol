@@ -1,0 +1,10 @@
+{
+  "meta": { "policy": "CUP allow-list v0.1" },
+  "nodes": {
+    "example.node": {
+      "pubkey_pem": "-----BEGIN PUBLIC KEY-----\nREPLACE_ME\n-----END PUBLIC KEY-----\n",
+      "owner": "example-owner",
+      "contact": "owner@example.org"
+    }
+  }
+}
