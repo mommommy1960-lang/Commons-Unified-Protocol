@@ -1,1 +1,5 @@
+CERL-1.0 — Commons Ethical Research License (PLACEHOLDER)
 
+This repo is released under CERL-1.0. Replace this placeholder with the
+authoritative text you published (or link/DOI to your license record).
+All protocol code/specs are irrevocably licensed for public, non-capturable use.
