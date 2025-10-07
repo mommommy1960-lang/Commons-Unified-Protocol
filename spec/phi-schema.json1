@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CUP Φ Message",
+  "type": "object",
+  "required": ["phi_version","from","to","intent","content","timestamp","nonce","signature"],
+  "properties": {
+    "phi_version": { "type": "string", "const": "0.1" },
+    "from": { "type": "string", "minLength": 1 },
+    "to": { "type": "string", "minLength": 1 },
+    "intent": { "type": "string", "enum": ["status","ask","answer","event","transfer"] },
+    "content": { "type": "object" },
+    "timestamp": { "type": "string" },
+    "nonce": { "type": "string", "minLength": 8 },
+    "signature": { "type": "string" }
+  }
+}
