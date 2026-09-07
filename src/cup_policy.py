@@ -1,6 +1,9 @@
 """Fail-closed policy enforcement for CUP messages."""
 from __future__ import annotations
 
+import hashlib
+import hmac
+import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Iterable
@@ -26,17 +29,38 @@ class NodePolicy:
     node_id: str
     allowed_versions: frozenset[str]
     allowed_intents: frozenset[str]
+    signing_key: bytes
     revoked: bool = False
+
+    def __post_init__(self) -> None:
+        if len(self.signing_key) < 32:
+            raise PolicyViolation("signing key must contain at least 32 bytes")
 
 
 def _parse_utc(value: str) -> datetime:
     try:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except (TypeError, ValueError) as exc:
+    except (AttributeError, TypeError, ValueError) as exc:
         raise PolicyViolation("invalid timestamp") from exc
     if parsed.tzinfo is None:
         raise PolicyViolation("timestamp must include timezone")
     return parsed.astimezone(timezone.utc)
+
+
+def _authenticated_bytes(message: dict) -> bytes:
+    authenticated = {key: value for key, value in message.items() if key != "signature"}
+    try:
+        return json.dumps(
+            authenticated, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+        ).encode("utf-8")
+    except (TypeError, ValueError) as exc:
+        raise PolicyViolation("message is not canonically serializable") from exc
+
+
+def sign_message(message: dict, signing_key: bytes) -> str:
+    if len(signing_key) < 32:
+        raise PolicyViolation("signing key must contain at least 32 bytes")
+    return hmac.new(signing_key, _authenticated_bytes(message), hashlib.sha256).hexdigest()
 
 
 def authorize_message(
@@ -62,6 +86,12 @@ def authorize_message(
         raise PolicyViolation("intent is outside sender scope")
     if recipient is not None and message["to"] != recipient:
         raise PolicyViolation("wrong recipient")
+    supplied_signature = message.get("signature")
+    if not isinstance(supplied_signature, str):
+        raise PolicyViolation("invalid message signature")
+    expected_signature = sign_message(message, policy.signing_key)
+    if not hmac.compare_digest(supplied_signature, expected_signature):
+        raise PolicyViolation("invalid message signature")
     current = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     age = (current - _parse_utc(message["timestamp"])).total_seconds()
     if age < -30 or age > max_age_seconds:
