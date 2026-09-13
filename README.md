@@ -20,8 +20,21 @@
   "nonce": "random-unique-string",
   "signature": "base64(ed25519_signature_over_fields_above)"
 }
+```
+
 ### Signature rules
 Sign the bytes of:
 `phi_version|from|to|intent|timestamp|nonce|SHA256(content)`
 
 Attach the Base64 signature in `signature`.
+
+## COMMONS NETWORK
+
+This repository is one node in the Commons Initiative project nervous system.
+
+- **Continuity spine:** https://github.com/mommommy1960-lang/commons-sentience-sandbox/tree/main/docs/continuity
+- **Network map:** https://github.com/mommommy1960-lang/commons-sentience-sandbox/blob/main/docs/continuity/PROJECT_NERVOUS_SYSTEM.md
+- **Aurora:** https://github.com/mommommy1960-lang/aurora-sovereign-core
+- **Flux:** https://github.com/mommommy1960-lang/flux-drive-kernel
+
+Local repositories own their domain-specific implementation. Cross-project status, handoffs, dependencies, and evidence boundaries are synchronized through the continuity spine so future collaborators can traverse the system without reconstructing it from chat history.
