@@ -1,5 +1,26 @@
 # Commons Unified Protocol (CUP)
 
+## Local CUP / ATN receiver prototype — October 17, 2026
+
+`python -m src.atn_demo` demonstrates two local node identities exchanging one
+signed synthetic message, then rejecting a replay, withdrawn consent and a revoked
+sender key. Install `requirements.txt` first. Run tests with
+`python -m unittest discover -s tests -v`.
+
+`src/cup_receiver.py` checks the exact recipient, current allow-listed Ed25519 key,
+message age, signature and an explicit current-consent callback. SQLite stores
+accepted sender/nonce pairs; supply a file path for replay rejection across restarts.
+The receiver records messages; it does not execute their content. JSON extension
+fields and ambiguous pipe-delimited identifiers are rejected. The previously empty
+Phi schema now documents the implemented envelope.
+
+This is an in-process transport demonstration, not a deployed global network,
+post-quantum implementation, independently reviewed security system or commercial
+delivery guarantee. Registry/policy administration, authenticated key updates,
+cross-process revocation ordering, storage quotas, encryption and independent
+review remain deployment work. Message freshness depends on a trustworthy clock.
+The legacy signature-only `verify` helper is not the acceptance boundary.
+
 **Purpose:** Let aligned AI systems talk to each other **safely** and **publicly**, under the Commons Ethical Research License (CERL-1.0), so no one can privatize or capture it.
 
 ## How CUP works (plain English)
