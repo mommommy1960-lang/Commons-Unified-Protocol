@@ -1,1 +1,17 @@
-
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CUP Phi 0.1 signed envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["phi_version", "from", "to", "intent", "content", "timestamp", "nonce", "signature"],
+  "properties": {
+    "phi_version": {"const": "0.1"},
+    "from": {"type": "string", "pattern": "^[A-Za-z0-9_.:-]{1,128}$"},
+    "to": {"type": "string", "pattern": "^[A-Za-z0-9_.:-]{1,128}$"},
+    "intent": {"enum": ["status", "ask", "answer", "event", "transfer"]},
+    "content": {"type": "object"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "nonce": {"type": "string", "pattern": "^[A-Za-z0-9_.:-]{1,128}$"},
+    "signature": {"type": "string", "contentEncoding": "base64"}
+  }
+}

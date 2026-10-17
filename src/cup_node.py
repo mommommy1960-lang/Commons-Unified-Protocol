@@ -45,7 +45,7 @@ if __name__ == "__main__":
         "intent": "status",
         "content": {"hello": "world"},
         "timestamp": now,
-        "nonce": base64.b64encode(os.urandom(16)).decode("utf-8"),
+        "nonce": base64.urlsafe_b64encode(os.urandom(16)).decode("utf-8").rstrip("="),
         "signature": ""
     }
 

@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+keys/*private*
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
