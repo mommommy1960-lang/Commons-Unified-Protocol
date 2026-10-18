@@ -59,3 +59,13 @@ This repository is one node in the Commons Initiative project nervous system.
 - **Flux:** https://github.com/mommommy1960-lang/flux-drive-kernel
 
 Local repositories own their domain-specific implementation. Cross-project status, handoffs, dependencies, and evidence boundaries are synchronized through the continuity spine so future collaborators can traverse the system without reconstructing it from chat history.
+
+
+## Mutual collaboration boundaries
+
+Before protected exchange or shared work, read our [collaboration boundaries](https://github.com/mommommy1960-lang/commons-sentience-sandbox/blob/main/docs/continuity/PUBLIC_COLLABORATION_BOUNDARIES.md). Both parties retain their existing rights; scope, confidentiality, contributions, access and exit must be agreed for the actual engagement. Existing licenses and lawful reporting rights remain unaffected. This operating notice is not an executed contract.
+
+
+### License text needs review
+
+[LICENSE-CERL-1.0-PLACEHOLDER.txt](LICENSE-CERL-1.0-PLACEHOLDER.txt) is explicitly a placeholder and contains an existing public-use statement. It is not a complete license instrument. No replacement license or withdrawal of earlier rights is made by this notice. Resolve the authoritative text and scope before relying on a specific reuse or commercialization grant.
